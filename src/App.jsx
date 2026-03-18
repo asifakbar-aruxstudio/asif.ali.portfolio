@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -31,6 +32,7 @@ const App = () => {
 
       <WhatsAppButton />
       <Footer />
+      <SpeedInsights />
 
     </BrowserRouter>
   );
