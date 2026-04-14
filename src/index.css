@@ -1,101 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeRight {
-    from {
-      transform: translateX(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeLeft {
-    from {
-      transform: translateX(-20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes zoomIn {
-    from {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  
-  /* Add Tailwind utility classes for custom animations */
-  .animate-fadeIn {
-    animation: fadeIn 0.5s ease-in forwards;
-  }
-  
-  .animate-fadeRight {
-    animation: fadeRight 0.5s ease-in forwards;
-  }
-  
-  .animate-fadeLeft {
-    animation: fadeLeft 0.5s ease-in forwards;
-  }
-  
-  .animate-zoomIn {
-    animation: zoomIn 0.5s ease-in forwards;
-  }
-  
-  .animate-fadeUp {
-    animation: fadeIn 0.5s ease-in forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-  
-  .animate-fadeInUp {
-    animation: fadeInUp 0.5s ease-in forwards;
-  }
- .cursor {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  background: radial-gradient(circle, #b9e204, transparent);
-  filter: blur(1px);
-  transition: transform 0.08s linear;
-}
-.cursor {
-  animation: glow 2s infinite alternate;
+:root {
+  --primary: #0ea5e9;
+  --accent: #a855f7;
 }
 
-@keyframes glow {
-  0% { filter: blur(2px); }
-  100% { filter: blur(6px); }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
 }
 
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  @apply bg-slate-900 text-white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInLeft {
+  from { transform: translateX(-30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeInRight {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fadeInLeft {
+  animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.6s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  @apply border border-white/10;
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #0ea5e9 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+}
+
+.bg-mesh {
+  background-image: 
+    radial-gradient(at 40% 20%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(14, 165, 233, 0.15) 0px, transparent 50%);
+}
+
+.btn-primary {
+  @apply relative overflow-hidden px-8 py-4 rounded-full font-semibold text-white;
+  background: linear-gradient(135deg, #0ea5e9 0%, #a855f7 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(168, 85, 247, 0.4);
+}
+
+.btn-secondary {
+  @apply relative overflow-hidden px-8 py-4 rounded-full font-semibold text-white;
+  border: 2px solid transparent;
+  background: linear-gradient(#0f172a, #0f172a) padding-box,
+              linear-gradient(135deg, #0ea5e9, #a855f7) border-box;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(168, 85, 247, 0.2);
+}
+
+.input-field {
+  @apply w-full px-5 py-4 rounded-xl bg-gray-800/50 border border-gray-700 text-white;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  @apply outline-none border-purple-500;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+.input-field::placeholder {
+  @apply text-gray-500;
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.25);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.section-padding {
+  padding: 100px 0;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 60px 0;
+  }
+}
+
+::-moz-selection {
+  background: rgba(168, 85, 247, 0.3);
+  color: white;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.3);
+  color: white;
+}

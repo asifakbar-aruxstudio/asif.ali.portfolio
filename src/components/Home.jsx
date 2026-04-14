@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { FiArrowRight, FiDownload } from "react-icons/fi";
 import About from "./About";
 import Skills from "./Skills";
 import Services from "./Services";
 import Projects from "./Projects";
 import Contact from "./Contact";
-import WhatsAppButton from "./WhatsAppButton";
 
 const roles = [
   "MERN Stack Developer",
@@ -19,6 +19,11 @@ const Home = () => {
   const [text, setText] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
@@ -44,86 +49,105 @@ const Home = () => {
 
   return (
     <>
-      {/* HERO SECTION */}
-      <section
-        className="relative min-h-screen flex items-center 
-        bg-cover bg-center"
-        style={{ backgroundImage: "url(re.png)" }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/70"></div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 bg-mesh"></div>
+        
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/10 to-sky-500/10 rounded-full blur-3xl"></div>
+        </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 
-          grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="order-2 lg:order-1 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium mb-6 animate-fadeInUp">
+              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+              Available for work
+            </div>
 
-          {/* LEFT CONTENT */}
-          <div className="text-center md:text-left">
-            <p className="text-purple-400 font-semibold tracking-wide mb-3">
-              Hi, I’m
-            </p>
-
-            <h1 className="text-white font-extrabold 
-              text-4xl sm:text-5xl md:text-6xl leading-tight">
-              Asif Akbar
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4">
+              Hi, I'm <span className="gradient-text">Asif Akbar</span>
             </h1>
 
-            <h2 className="mt-4 text-xl sm:text-2xl text-gray-300 h-8">
-              <span className="text-purple-400 font-semibold">
+            <div className="h-10 sm:h-12 mb-6">
+              <span className="text-2xl sm:text-3xl font-semibold gradient-text">
                 {text}
+                <span className="inline-block w-[3px] h-8 ml-1 bg-purple-500 animate-pulse"></span>
               </span>
-              <span className="animate-pulse">|</span>
-            </h2>
+            </div>
 
-            <p className="mt-6 text-gray-300 max-w-xl leading-relaxed">
+            <p className="text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
               I build scalable, secure, and high-performance web applications
               using modern technologies like React, Node.js, Express, and MongoDB.
               Passionate about clean code and real-world solutions.
             </p>
 
-            {/* CTA */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 
-              justify-center md:justify-start">
-              <a
-                href="#projects"
-                className="bg-purple-600 hover:bg-purple-700
-                text-white px-8 py-3 rounded-md font-semibold
-                transition shadow-lg text-center"
-              >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="#projects" className="btn-primary inline-flex items-center justify-center gap-2">
                 View Projects
+                <FiArrowRight className="transition-transform" />
               </a>
 
-              <a
-                href="#contact"
-                className="border border-purple-500 text-purple-400
-                hover:bg-purple-600 hover:text-white
-                px-8 py-3 rounded-md font-semibold
-                transition shadow-lg text-center"
-              >
-                Hire Me
+              <a href="/Asif Akbar.pdf" download className="btn-secondary inline-flex items-center justify-center gap-2">
+                <FiDownload />
+                Download CV
               </a>
+            </div>
+
+            <div className="mt-12 flex items-center justify-center lg:justify-start gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">15+</div>
+                <div className="text-sm text-gray-500">Projects</div>
+              </div>
+              <div className="w-px h-12 bg-gray-700"></div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">1+</div>
+                <div className="text-sm text-gray-500">Years Exp.</div>
+              </div>
+              <div className="w-px h-12 bg-gray-700"></div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">100%</div>
+                <div className="text-sm text-gray-500">Satisfaction</div>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <div className="flex justify-center md:justify-end">
-            <img
-              src="./enhancerImage.png"
-              alt="Asif Akbar"
-              className="w-64 sm:w-72 md:w-96 rounded-2xl
-              shadow-2xl border border-white/10"
-            />
-            <WhatsAppButton />
+          <div className="order-1 lg:order-2 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-sky-500 to-pink-500 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+              <div className="relative w-72 sm:w-80 lg:w-96 aspect-square rounded-3xl overflow-hidden border border-white/10">
+                <img
+                  src="./enhancerImage.png"
+                  alt="Asif Akbar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-2xl bg-slate-800 border border-gray-700 flex flex-col items-center justify-center shadow-xl">
+                <span className="text-2xl">M</span>
+                <span className="text-xs text-gray-400">MERN</span>
+              </div>
+              
+              <div className="absolute -top-6 -left-6 w-20 h-20 rounded-2xl bg-slate-800 border border-gray-700 flex items-center justify-center shadow-xl animate-float">
+                <span className="text-2xl">⚡</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500">
+          <span className="text-sm">Scroll Down</span>
+          <div className="w-6 h-10 rounded-full border-2 border-gray-700 flex items-start justify-center p-1">
+            <div className="w-1.5 h-3 bg-purple-500 rounded-full animate-bounce"></div>
           </div>
         </div>
       </section>
 
-      {/* SECTIONS */}
       <About />
       <Skills />
       <Services />
       <Projects />
       <Contact />
-      
     </>
   );
 };

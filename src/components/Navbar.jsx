@@ -1,132 +1,164 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { FiMenu, FiX, FiMoon, FiSun, FiDownload } from "react-icons/fi";
+import { NavLink, useLocation } from "react-router-dom";
+import { FiMenu, FiX, FiMoon, FiSun, FiDownload, FiHome, FiUser, FiBriefcase, FiMail } from "react-icons/fi";
 
 const sections = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Projects", path: "/projects" },
-  { name: "Contact", path: "/contact" },
+  { name: "Home", path: "/", icon: <FiHome /> },
+  { name: "About", path: "/about", icon: <FiUser /> },
+  { name: "Projects", path: "/projects", icon: <FiBriefcase /> },
+  { name: "Contact", path: "/contact", icon: <FiMail /> },
 ];
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const location = useLocation();
 
-  // Sticky shadow on scroll
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Dark mode
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300
-      ${scrolled ? "backdrop-blur bg-white/80 dark:bg-gray-900/80 shadow-md" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        scrolled 
+          ? "bg-slate-900/90 backdrop-blur-xl shadow-xl shadow-purple-500/10 py-3" 
+          : "bg-transparent py-5"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        
-        {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2">
-          <img
-            src="/blue.png"
-            alt="Asif Akbar"
-            className="h-10 w-10 rounded-full"
-          />
-          {/* <span className="font-bold text-lg text-gray-800 dark:text-white">
-            Asif Akbar
-          </span> */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <NavLink 
+          to="/" 
+          className={`flex items-center gap-3 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+        >
+          <div className="relative">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-sky-500 flex items-center justify-center">
+              <span className="text-white font-bold text-xl">A</span>
+            </div>
+            <div className="absolute -inset-1 bg-gradient-to-br from-purple-500 to-sky-500 rounded-xl blur opacity-40"></div>
+          </div>
+          <span className="font-bold text-xl text-white">
+            Asif<span className="text-purple-500">Akbar</span>
+          </span>
         </NavLink>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-8">
-          {sections.map(({ name, path }) => (
+        <nav className="hidden lg:flex items-center gap-2">
+          {sections.map(({ name, path, icon }) => (
             <NavLink
               key={name}
               to={path}
-              className={({ isActive }) =>
-                `font-medium transition relative
-                ${isActive
-                  ? "text-purple-600 dark:text-purple-400 after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-purple-600"
-                  : "text-gray-700 dark:text-gray-300 hover:text-purple-600"}`
-              }
+              className={`relative px-5 py-2.5 rounded-full font-medium transition-all duration-300 group ${
+                isActive(path)
+                  ? "text-white bg-purple-500/20"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
             >
-              {name}
+              <span className="flex items-center gap-2">
+                <span className={`text-lg ${isActive(path) ? 'text-purple-400' : 'text-gray-500 group-hover:text-purple-400'}`}>
+                  {icon}
+                </span>
+                {name}
+              </span>
+              {isActive(path) && (
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-sky-500/20 animate-pulse"></div>
+              )}
             </NavLink>
           ))}
+        </nav>
 
-          {/* CV Button */}
+        <div className="hidden lg:flex items-center gap-4">
           <a
             href="/Asif Akbar.pdf"
             download
-            className="flex items-center gap-2 px-4 py-2 rounded-md
-            bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold transition"
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-sky-500 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 hover:scale-105"
           >
-            <FiDownload /> CV
+            <FiDownload className="group-hover:animate-bounce" />
+            <span>Resume</span>
           </a>
 
-          {/* Theme Toggle */}
           <button
             onClick={() => setDark(!dark)}
-            className="text-xl text-gray-700 dark:text-gray-300 hover:text-purple-600 transition"
+            className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
           >
-            {dark ? <FiSun /> : <FiMoon />}
+            {dark ? <FiSun className="text-amber-400" /> : <FiMoon className="text-purple-400" />}
           </button>
-        </nav>
+        </div>
 
-        {/* Mobile Button */}
         <button
           onClick={() => setOpen(true)}
-          className="md:hidden text-2xl text-gray-800 dark:text-white"
+          className="lg:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white"
         >
-          <FiMenu />
+          <FiMenu className="text-xl" />
         </button>
       </div>
 
-      {/* Mobile Drawer */}
       {open && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50">
-          <div className="absolute right-0 top-0 h-full w-72 bg-white dark:bg-gray-900 p-6">
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-2xl text-gray-700 dark:text-white"
-            >
-              <FiX />
-            </button>
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div 
+            className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          ></div>
+          <div className="absolute right-0 top-0 h-full w-80 max-w-full bg-slate-800 border-l border-white/10 p-6 animate-fadeInRight">
+            <div className="flex items-center justify-between mb-10">
+              <span className="font-bold text-xl text-white">
+                Asif<span className="text-purple-500">Akbar</span>
+              </span>
+              <button
+                onClick={() => setOpen(false)}
+                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white"
+              >
+                <FiX className="text-xl" />
+              </button>
+            </div>
 
-            <div className="mt-16 flex flex-col gap-6">
-              {sections.map(({ name, path }) => (
+            <nav className="flex flex-col gap-3">
+              {sections.map(({ name, path, icon }) => (
                 <NavLink
                   key={name}
                   to={path}
                   onClick={() => setOpen(false)}
-                  className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600"
+                  className={`flex items-center gap-3 px-5 py-4 rounded-xl font-medium transition-all duration-300 ${
+                    isActive(path)
+                      ? "bg-gradient-to-r from-purple-500/20 to-sky-500/20 text-white border border-purple-500/30"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`}
                 >
+                  <span className="text-lg text-purple-400">{icon}</span>
                   {name}
                 </NavLink>
               ))}
+            </nav>
 
+            <div className="mt-8 pt-8 border-t border-white/10">
               <a
                 href="/Asif Akbar.pdf"
                 download
-                className="flex items-center gap-2 mt-4 px-4 py-2 rounded-md
-                bg-purple-600 text-white font-semibold"
+                className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-sky-500 text-white font-semibold"
               >
-                <FiDownload /> Download CV
+                <FiDownload />
+                Download Resume
               </a>
-
+              
               <button
                 onClick={() => setDark(!dark)}
-                className="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                className="flex items-center justify-center gap-2 w-full mt-4 py-4 rounded-xl text-gray-400 hover:text-white transition-colors"
               >
-                {dark ? <FiSun /> : <FiMoon />}
-                Toggle Theme
+                {dark ? <FiSun className="text-amber-400" /> : <FiMoon className="text-purple-400" />}
+                {dark ? 'Light Mode' : 'Dark Mode'}
               </button>
             </div>
           </div>
@@ -135,4 +167,5 @@ const Navbar = () => {
     </header>
   );
 };
+
 export default Navbar;
