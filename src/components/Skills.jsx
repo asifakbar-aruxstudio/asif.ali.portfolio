@@ -25,17 +25,15 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" className="relative py-24 bg-slate-800 overflow-hidden">
-      <div className="absolute inset-0 bg-mesh opacity-50"></div>
-      
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-        <div className={`text-center mb-16 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <div className="py-8">
+      <div className={`transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm font-medium mb-4">
             <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
             My Expertise
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Skills & <span className="gradient-text">Technologies</span>
           </h2>
           
@@ -45,63 +43,38 @@ const Skills = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {skills.map((skill, idx) => (
             <div
               key={idx}
-              className={`fade-up group relative p-6 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-purple-500/30 transition-all duration-500 card-hover overflow-hidden ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`group relative p-4 rounded-xl bg-slate-800/50 border border-white/5 hover:border-purple-500/30 transition-all duration-300 card-hover overflow-hidden ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${idx * 0.05}s` }}
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
               
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${skill.color} flex items-center justify-center text-white text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${skill.color} flex items-center justify-center text-white text-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                     {skill.icon}
                   </div>
-                  <span className="text-2xl font-bold text-white">{skill.level}%</span>
+                  <span className="text-xs text-gray-400 font-medium">{skill.level}%</span>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-white mb-3">{skill.name}</h3>
+                <h3 className="text-white font-semibold mb-2">{skill.name}</h3>
                 
-                <div className="w-full h-2 rounded-full bg-gray-800 overflow-hidden">
+                {/* Progress Bar */}
+                <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
                   <div 
-                    className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000`}
+                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out`}
                     style={{ width: mounted ? `${skill.level}%` : '0%' }}
                   ></div>
                 </div>
               </div>
-              
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full"></div>
             </div>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <div className="inline-flex flex-wrap justify-center gap-8 p-6 rounded-2xl bg-white/5 border border-white/10">
-            <div className="text-center">
-              <div className="text-3xl font-bold gradient-text">MERN</div>
-              <div className="text-sm text-gray-500">Stack</div>
-            </div>
-            <div className="w-px h-12 bg-gray-700"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">REST</div>
-              <div className="text-sm text-gray-500">APIs</div>
-            </div>
-            <div className="w-px h-12 bg-gray-700"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">JWT</div>
-              <div className="text-sm text-gray-500">Auth</div>
-            </div>
-            <div className="w-px h-12 bg-gray-700"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">Git</div>
-              <div className="text-sm text-gray-500">Version Control</div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

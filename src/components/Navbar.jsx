@@ -84,7 +84,7 @@ const Navbar = () => {
           <a
             href="/Asif Akbar.pdf"
             download
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-sky-500 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 hover:scale-105"
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full btn-3d-primary text-sm"
           >
             <FiDownload className="group-hover:animate-bounce" />
             <span>Resume</span>
@@ -92,7 +92,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setDark(!dark)}
-            className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+            className="w-10 h-10 rounded-full glass-effect flex items-center justify-center hover:scale-110 transition-all duration-300 hover:border-purple-500/30"
           >
             {dark ? <FiSun className="text-amber-400" /> : <FiMoon className="text-purple-400" />}
           </button>
@@ -100,7 +100,7 @@ const Navbar = () => {
 
         <button
           onClick={() => setOpen(true)}
-          className="lg:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white"
+          className="lg:hidden w-10 h-10 rounded-xl glass-effect flex items-center justify-center text-white hover:scale-110 transition-all"
         >
           <FiMenu className="text-xl" />
         </button>
@@ -119,7 +119,7 @@ const Navbar = () => {
               </span>
               <button
                 onClick={() => setOpen(false)}
-                className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-white"
+                className="w-10 h-10 rounded-xl glass-effect flex items-center justify-center text-white hover:scale-110 transition-all"
               >
                 <FiX className="text-xl" />
               </button>
@@ -143,11 +143,11 @@ const Navbar = () => {
               ))}
             </nav>
 
-            <div className="mt-8 pt-8 border-t border-white/10">
+            <div className="mt-8 pt-8 border-t border-white/10 dark:border-white/5">
               <a
                 href="/Asif Akbar.pdf"
                 download
-                className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-sky-500 text-white font-semibold"
+                className="flex items-center justify-center gap-2 w-full py-4 rounded-xl btn-3d-primary text-sm"
               >
                 <FiDownload />
                 Download Resume
@@ -155,7 +155,7 @@ const Navbar = () => {
               
               <button
                 onClick={() => setDark(!dark)}
-                className="flex items-center justify-center gap-2 w-full mt-4 py-4 rounded-xl text-gray-400 hover:text-white transition-colors"
+                className="flex items-center justify-center gap-2 w-full mt-4 py-4 rounded-xl glass-effect-dark hover:scale-105 transition-all"
               >
                 {dark ? <FiSun className="text-amber-400" /> : <FiMoon className="text-purple-400" />}
                 {dark ? 'Light Mode' : 'Dark Mode'}

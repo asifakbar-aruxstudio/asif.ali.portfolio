@@ -51,85 +51,52 @@ const Services = () => {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.fade-up');
-      elements.forEach((el) => {
-        const position = el.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        if (position < windowHeight - 100) {
-          el.classList.add('animate-fadeInUp');
-        }
-      });
-    };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <section id="services" className="relative py-24 bg-slate-900 overflow-hidden">
-      <div className="absolute inset-0 bg-mesh opacity-30"></div>
-      
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-        <div className={`text-center mb-16 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium mb-4">
-            <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+    <div className="py-8">
+      <div className={`transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-4">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
             What I Offer
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Professional <span className="gradient-text">Services</span>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            My <span className="gradient-text">Services</span>
           </h2>
           
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Comprehensive web development solutions tailored to bring your vision to life 
-            with modern technologies and best practices.
+            Comprehensive development services to bring your ideas to life.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service, idx) => (
             <div
               key={idx}
-              className={`fade-up group relative p-8 rounded-3xl bg-slate-800/50 border border-white/5 hover:border-purple-500/30 transition-all duration-500 overflow-hidden ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`glass-card p-6 rounded-2xl hover:scale-105 transition-all duration-300 group ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${idx * 0.1}s` }}
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-15 transition-opacity duration-500`}></div>
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white text-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform`}>
+                {service.icon}
+              </div>
               
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full"></div>
+              <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-4">{service.description}</p>
               
-              <div className="relative z-10">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white text-3xl mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:gradient-text transition-all">
-                  {service.title}
-                </h3>
-                
-                <p className="text-gray-400 leading-relaxed mb-6">
-                  {service.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {service.features.map((feature, i) => (
-                    <span 
-                      key={i}
-                      className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex flex-wrap gap-2">
+                {service.features.map((feature, i) => (
+                  <span key={i} className="px-3 py-1 text-xs rounded-full bg-white/5 text-gray-300 border border-white/10">
+                    {feature}
+                  </span>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

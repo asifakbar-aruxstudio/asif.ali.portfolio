@@ -1,38 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import WhatsAppButton from "./components/WhatsAppButton";
-import GlowCursor from "./components/GlowCursor";
+import { useEffect } from "react";
+import WindowsDesktop from "./components/WindowsDesktop";
 
 const App = () => {
+  useEffect(() => {
+    // Enable dark mode by default for Windows desktop theme
+    document.documentElement.classList.add('dark');
+  }, []);
+
   return (
-    <BrowserRouter>
-      
-      {/* Cursor Effect */}
-      <GlowCursor />
-
-      {/* Layout */}
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-
-      <WhatsAppButton />
-      <Footer />
-
-    </BrowserRouter>
+    <WindowsDesktop />
   );
 };
 

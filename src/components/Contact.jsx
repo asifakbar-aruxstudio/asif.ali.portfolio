@@ -60,20 +60,15 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative py-24 bg-slate-900 overflow-hidden">
-      <div className="absolute inset-0 bg-mesh opacity-50"></div>
-      
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-        <div className={`text-center mb-16 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <div className="py-8">
+      <div className={`transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium mb-4">
             <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
             Get In Touch
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Let's <span className="gradient-text">Connect</span>
           </h2>
           
@@ -83,15 +78,16 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className={`transition-all duration-1000 delay-200 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="p-8 rounded-3xl bg-slate-800/50 border border-white/5 backdrop-blur">
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Contact Info */}
+          <div>
+            <div className="glass-card p-6 rounded-2xl">
+              <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
               
-              <div className="space-y-6 mb-8">
+              <div className="space-y-4 mb-6">
                 {contactInfo.map((info, idx) => (
                   <div key={idx} className="flex items-center gap-4 group">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white text-xl shadow-lg group-hover:scale-110 transition-transform`}>
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center text-white text-xl shadow-lg group-hover:scale-110 transition-transform`}>
                       {info.icon}
                     </div>
                     <div>
@@ -102,16 +98,16 @@ const Contact = () => {
                 ))}
               </div>
 
-              <div className="pt-8 border-t border-white/10">
-                <p className="text-gray-400 mb-4">Follow me on social media</p>
-                <div className="flex gap-4">
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-gray-400 mb-4 text-sm">Follow me on social media</p>
+                <div className="flex gap-3">
                   {socialLinks.map((social, idx) => (
                     <a
                       key={idx}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} hover:text-white transition-all hover:scale-110`}
+                      className={`w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 ${social.color} hover:text-white transition-all hover:scale-110`}
                     >
                       {social.icon}
                     </a>
@@ -121,11 +117,12 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className={`transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="p-8 rounded-3xl bg-slate-800/50 border border-white/5 backdrop-blur">
-              <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
+          {/* Contact Form */}
+          <div>
+            <div className="glass-card p-6 rounded-2xl">
+              <h3 className="text-xl font-bold text-white mb-6">Send a Message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm text-gray-400 mb-2">Your Name</label>
                   <input
@@ -134,7 +131,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none"
                     placeholder="John Doe"
                   />
                 </div>
@@ -147,7 +144,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -156,11 +153,11 @@ const Contact = () => {
                   <label className="block text-sm text-gray-400 mb-2">Your Message</label>
                   <textarea
                     name="message"
-                    rows="5"
+                    rows="4"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-900/50 border border-white/10 text-white placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -168,7 +165,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-sky-500 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-xl btn-3d-primary flex items-center justify-center gap-2 text-sm"
                 >
                   {loading ? (
                     <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
@@ -195,7 +192,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
