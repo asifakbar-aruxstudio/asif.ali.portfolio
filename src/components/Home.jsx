@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { FiArrowRight, FiDownload, FiCheck, FiUser } from "react-icons/fi";
+import { FiArrowRight, FiDownload, FiCheck } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 
 const notifyVisit = async () => {
