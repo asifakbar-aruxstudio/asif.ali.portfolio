@@ -88,18 +88,21 @@ const Home = () => {
   }, [text, isDeleting, roleIndex]);
 
   return (
-    <div className="relative min-h-screen flex items-center py-16 md:py-0">
+    // FIX 1: overflow-x-hidden root pe lagaya taake blur orbs horizontal scrollbar na banayein
+    <div className="relative min-h-screen w-full overflow-x-hidden flex items-center py-16 md:py-0">
       {/* Windows-inspired background */}
       <div className="absolute inset-0 bg-mesh opacity-30"></div>
       
       {/* Windows accent orbs */}
+      {/* FIX 2: parent ko overflow-hidden diya (orbs viewport se bahar bleed na karein) */}
       <div className="absolute inset-0 overflow-hidden perspective-1000 pointer-events-none">
         <div className="absolute top-10 left-10 w-32 md:w-48 h-32 md:h-48 bg-gradient-to-br from-windows-blue/30 to-windows-cyan/30 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-10 right-10 w-40 md:w-64 h-40 md:h-64 bg-gradient-to-br from-windows-green/20 to-windows-blue/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
-        <div className="absolute top-1/2 left-1/2 w-64 md:w-96 h-64 md:h-96 bg-gradient-to-br from-windows-accent/10 to-transparent rounded-full blur-3xl animate-float" style={{ animationDelay: '5s' }}></div>
+        {/* FIX 3: yahan w-96/h-96 bade circle ko max-w-[90vw] diya taake chhoti screens pe overflow na ho */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 md:w-96 h-64 md:h-96 max-w-[90vw] max-h-[90vw] bg-gradient-to-br from-windows-accent/10 to-transparent rounded-full blur-3xl animate-float" style={{ animationDelay: '5s' }}></div>
       </div>
 
-      <div className={`relative max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative w-full max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left content */}
           <div className="order-2 lg:order-1">
@@ -116,8 +119,9 @@ const Home = () => {
             </h1>
 
             {/* Typing animation */}
-            <div className="h-10 md:h-12 mb-4 md:mb-6">
-              <span className="text-lg md:text-2xl lg:text-3xl font-semibold text-white">
+            {/* FIX 4: fixed height ki jagah min-h + break-words diya taake lamba role text kisi bhi screen pe wrap ho, cut na ho */}
+            <div className="min-h-10 md:min-h-12 mb-4 md:mb-6">
+              <span className="text-lg md:text-2xl lg:text-3xl font-semibold text-white break-words">
                 <span className="windows-gradient-text">{text}</span>
                 <span className="inline-block w-[3px] h-6 md:h-8 ml-1 bg-windows-blue animate-pulse shadow-[0_0_10px_rgba(0,120,212,0.8)]"></span>
               </span>
@@ -131,10 +135,11 @@ const Home = () => {
             </p>
 
             {/* CTA Buttons - Windows style */}
+            {/* FIX 5: chhoti screens pe buttons full-width taake wo overflow ya squeeze na hon */}
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-6 md:mb-8">
               <button 
                 onClick={() => window.openApp?.('projects')}
-                className="btn-windows-primary inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
+                className="btn-windows-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
               >
                 <span>View Projects</span>
                 <FiArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -143,7 +148,7 @@ const Home = () => {
               <a 
                 href="/Asif-Ali Full-Stack-Developer.pdf" 
                 download 
-                className="btn-windows-secondary inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
+                className="btn-windows-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
               >
                 <FiDownload className="group-hover:scale-110 transition-transform" />
                 <span>Download CV</span>
@@ -153,7 +158,7 @@ const Home = () => {
                 href="https://github.com/asifakbar-aruxstudio" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-windows-secondary inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
+                className="btn-windows-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 group text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
               >
                 <FaGithub className="group-hover:scale-110 transition-transform" />
                 <span>GitHub</span>
@@ -161,18 +166,19 @@ const Home = () => {
             </div>
 
             {/* Stats - Windows style */}
-            <div className="grid grid-cols-3 gap-2 md:gap-4">
+            {/* FIX 6: gap-2 se gap-3 kiya extra-small screens pe, aur text ko truncate se bachne ke liye whitespace-nowrap hataya */}
+            <div className="grid grid-cols-3 gap-3 md:gap-4">
               <div className="glass-card p-3 md:p-4 rounded-xl text-center hover:scale-105 transition-all duration-300 border-l-2 border-l-windows-blue">
                 <div className="text-xl md:text-2xl font-bold windows-gradient-text">15+</div>
-                <div className="text-xs text-gray-500">Projects</div>
+                <div className="text-[10px] xs:text-xs text-gray-500">Projects</div>
               </div>
               <div className="glass-card p-3 md:p-4 rounded-xl text-center hover:scale-105 transition-all duration-300 border-l-2 border-l-windows-green">
                 <div className="text-xl md:text-2xl font-bold windows-gradient-text">1+</div>
-                <div className="text-xs text-gray-500">Years Exp.</div>
+                <div className="text-[10px] xs:text-xs text-gray-500">Years Exp.</div>
               </div>
               <div className="glass-card p-3 md:p-4 rounded-xl text-center hover:scale-105 transition-all duration-300 border-l-2 border-l-windows-accent">
                 <div className="text-xl md:text-2xl font-bold windows-gradient-text">100%</div>
-                <div className="text-xs text-gray-500">Satisfaction</div>
+                <div className="text-[10px] xs:text-xs text-gray-500">Satisfaction</div>
               </div>
             </div>
           </div>
@@ -200,11 +206,11 @@ const Home = () => {
                   <div className="mt-8 text-center">
                     <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-windows-blue to-windows-cyan p-1 shadow-3d-glow">
                       <div className="w-full h-full rounded-full bg-gray-900 flex items-center justify-center">
-                        {/* <FiUser className="w-20 h-20 text-windows-blue" /> */}
                         <img 
                           src="/Profile.png" 
                           alt="Asif Akbar" 
-                          className="w-full h-full object-cover rounded-full opacity-0"                           onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
+                          className="w-full h-full object-cover rounded-full opacity-0"
+                          onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                         />
                       </div>
                     </div>
@@ -227,11 +233,12 @@ const Home = () => {
       </div>
 
       {/* Welcome notification - Windows style */}
+      {/* FIX 7: mobile pe left-4 right-4 (full-width card), sirf sm+ pe fixed right-6 width */}
       {showWelcome && (
-        <div className="fixed top-24 right-6 z-50 animate-fadeInRight">
-          <div className="glass-card-dark rounded-xl p-4 shadow-xl shadow-windows-blue/20 border-l-4 border-l-windows-blue">
+        <div className="fixed top-20 md:top-24 left-4 right-4 sm:left-auto sm:right-6 z-50 animate-fadeInRight">
+          <div className="glass-card-dark rounded-xl p-4 shadow-xl shadow-windows-blue/20 border-l-4 border-l-windows-blue sm:max-w-xs">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-windows-green/20 flex items-center justify-center">
+              <div className="w-10 h-10 shrink-0 rounded-full bg-windows-green/20 flex items-center justify-center">
                 <FiCheck className="text-windows-green" />
               </div>
               <div>
